@@ -1,0 +1,3 @@
+rootProject.name = 'messages'
+include 'consumer', 'producer'
+

@@ -1,0 +1,47 @@
+group 'se.patrikbergman.gradle'
+version '1.0-SNAPSHOT'
+
+
+
+
+allprojects {
+    task hello << { task -> println "I'm $task.project.name" }
+
+
+}
+
+subprojects {
+    hello {
+        doLast {println "- I depend on water"}
+        afterEvaluate { Project project ->
+            if (project.arctic) { doLast {
+                println '- I love to spend time in the arctic waters.' }
+            }
+        }
+    }
+
+    apply plugin: 'java'
+    compileJava {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    apply plugin: 'maven-publish'
+    publishing {
+        publications {
+            impl(MavenPublication) {
+                groupId rootProject.group
+                artifactId project.name
+                version project.version
+                from components.java
+            }
+        }
+    }
+}
+
+
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
