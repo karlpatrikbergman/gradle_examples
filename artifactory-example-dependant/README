@@ -1,0 +1,13 @@
+This is an example of a gradle project with code that has snapshot dependencies
+to artifacts published to Artifactory.
+
+The dependency is to artifact:
+group: se.patrikbergman.gradle
+name: artifactory-example
+version: 1.0-20161011.093834-2
+
+The gradle project artifactory-example is responsible for publishing
+artifact to Artifactory
+
+Good entrypoint:
+https://www.jfrog.com/confluence/display/RTF/Gradle+Artifactory+Plugin

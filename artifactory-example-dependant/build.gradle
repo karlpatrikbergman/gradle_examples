@@ -1,6 +1,15 @@
 group 'se.patrikbergman.gradle'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.7'
+    }
+}
+
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
@@ -10,35 +19,21 @@ compileJava {
     targetCompatibility = 1.8
 }
 
-buildscript {
-    repositories {
-        maven {
-            url 'http://localhost:8081/artifactory/plugins-release'
-            credentials {
-                username = "${artifactory_user}"
-                password = "${artifactory_password}"
-            }
-            name = "maven-main-cache"
+artifactory {
+    resolve {
+        contextUrl = "${artifactory_contextUrl}" //The base Artifactory URL for the resolver
+        repository {
+            repoKey = 'libs-snapshot-local' //The Artifactory (preferably virtual) repository key to resolve from
+//            username = 'admin'              //Optional resolver user name (leave out to use anonymous resolution)
+//            password = 'password'           //The resolver password
+//            maven = true                    //Resolve Maven-style artifacts and descriptors (true by default)
         }
     }
-    dependencies {
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
-    }
 }
+
 buildscript.repositories.each { repositories.add(it) }
 
-repositories {
-    maven {
-        url 'http://localhost:8081/artifactory/libs-snapshot-local'
-        credentials {
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-        }
-        name = "maven-main-cache"
-    }
-}
-
 dependencies {
-    compile(group: 'se.patrikbergman.gradle', name: 'artifactory-example', version: '1.1.2-20161006.192443-2')
+    compile(group: 'se.patrikbergman.gradle', name: 'artifactory-example', version: '1.0-20161011.093834-2')
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
