@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
+
 compileJava {
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
     sourceCompatibility = 1.8
@@ -24,9 +25,6 @@ artifactory {
         contextUrl = "${artifactory_contextUrl}" //The base Artifactory URL for the resolver
         repository {
             repoKey = 'libs-snapshot-local' //The Artifactory (preferably virtual) repository key to resolve from
-//            username = 'admin'              //Optional resolver user name (leave out to use anonymous resolution)
-//            password = 'password'           //The resolver password
-//            maven = true                    //Resolve Maven-style artifacts and descriptors (true by default)
         }
     }
 }
@@ -34,6 +32,6 @@ artifactory {
 buildscript.repositories.each { repositories.add(it) }
 
 dependencies {
-    compile(group: 'se.patrikbergman.gradle', name: 'artifactory-example', version: '1.0-20161011.093834-2')
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile("se.patrikbergman.gradle:artifactory-example:1.0-20161011.093834-2")
+    testCompile("junit:junit:4.12")
 }
