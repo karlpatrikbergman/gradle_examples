@@ -1,0 +1,41 @@
+group 'se.patrikbergman.gradle'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+compileJava {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+/**
+ * We customize the test task and add the testLogging method with a configuration closure.
+ * In the closure we set the property showStandardStreams to the value true.
+ */
+test {
+    testLogging {
+        showStandardStreams = true
+        // Or we use events method:
+        // events 'standard_out', 'standard_error'
+
+        // Or set property events:
+        // events = ['standard_out', 'standard_error']
+
+        // Instead of string values we can
+        // use enum values:
+        // events org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_OUT,
+        //        org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_ERROR,
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.projectlombok:lombok:1.16.10")
+    compile("org.slf4j:slf4j-api")
+    compile("ch.qos.logback:logback-classic:1.1.7")
+    compile("ch.qos.logback:logback-core:1.1.7")
+    testCompile("junit:junit:4.12")
+}

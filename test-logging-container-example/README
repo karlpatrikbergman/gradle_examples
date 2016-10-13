@@ -1,0 +1,25 @@
+http://mrhaki.blogspot.se/2014/10/gradle-goodness-show-standard-out-or.html
+
+We use the Test task in Gradle to run tests. If we use the System.out.println or System.err.println methods in our
+test we don't see the output when we execute the tests. We can customize the test task to show any output send to
+standard out or error in the Gradle output.
+
+test {
+    testLogging {
+        // Make sure output from
+        // standard out or error is shown
+        // in Gradle output.
+        showStandardStreams = true
+
+        // Or we use events method:
+        // events 'standard_out', 'standard_error'
+
+        // Or set property events:
+        // events = ['standard_out', 'standard_error']
+
+        // Instead of string values we can
+        // use enum values:
+        // events org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_OUT,
+        //        org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_ERROR,
+    }
+}
