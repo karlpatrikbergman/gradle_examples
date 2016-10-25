@@ -31,4 +31,15 @@ public class BandTest {
         assertEquals(1, band.getNumberOfPlayedShows());
         log.info("{} has played {} shows.", band.getName(), band.getNumberOfPlayedShows());
     }
+
+    @Test
+    public void logInCatchClause() {
+        Band band = null;
+        try {
+            band.play();
+        } catch (NullPointerException e) {
+            log.error("Caugh NullPointerException, to Slf4j");
+            System.err.println("Caugh NullPointerException, to standard err");
+        }
+    }
 }

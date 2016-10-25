@@ -12,6 +12,7 @@ buildscript {
 
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
+apply pllugin: 'idea'
 apply plugin: 'java'
 compileJava {
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
